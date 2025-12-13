@@ -19,4 +19,4 @@ class Database:
             )
         else:
             print(' [ERROR] Invalid database, please correct to a valid database.')
-            print(' [ERROR] Wiki: https://github.com/silvaleal/dpy2-framework/wiki/1.-Database-Config')
+            print(' [ERROR] Wiki: https://github.com/xama11/doc')

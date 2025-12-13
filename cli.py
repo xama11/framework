@@ -36,7 +36,7 @@ def officialCLI(container, decorator, scheduler, migration, model, ccc, load):
             _build_('container', ccc)
             _build_('components', ccc)
         else:
-            print('\ndpy2-framework by silvaleal\n -> Use `python cli.py --help`')
+            print('\nxama11 by silvaleal\n -> Use `python cli.py --help`')
 
 def _paths_(area):
     arr = {

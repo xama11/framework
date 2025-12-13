@@ -1,5 +1,4 @@
-# NOTE DEV:
-# https://github.com/silvaleal/dpy2-framework/wiki/4.-models-database
+# WIKI: https://github.com/xama11/doc 
 
 from provider.builders.SQLQueryBuilder import SQLQueryBuilder
 from provider.database import Database
