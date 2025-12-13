@@ -1,17 +1,20 @@
-# WIKI: https://github.com/xama11/doc 
+# NOTE DEV:
+# https://github.com/silvaleal/dpy2-framework/wiki/4.-models-database
 
 from provider.builders.SQLQueryBuilder import SQLQueryBuilder
 from provider.database import Database
 from provider.executors.ExecutorModel import ExecutorsModel
+import os
 
 from pypika import Query, Table
+from pypika.dialects import MySQLQuery
 
 class BaseModel(SQLQueryBuilder, ExecutorsModel):
     def __init__(self, table):
         self.conn = Database().connect()
         self.cursor = self.conn.cursor()
         self.table = Table(table)
-        self.command = Query()
+        self.command = Query() if os.getenv('DB_DRIVE').lower() == 'sqlite3' else MySQLQuery()
         
         super().__init__(self.conn, self.cursor, self.command, self.table)
         
