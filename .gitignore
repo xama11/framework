@@ -1,0 +1,5 @@
+__pycache__
+.env
+teste.py
+test.py
+database.db
