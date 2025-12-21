@@ -5,7 +5,7 @@ from provider.utils.SchedulerUtils import *
 
 # Your imports
 
-class Example(BaseScheduler):
+class ExampleScheduler(BaseScheduler):
     def __init__(self, scheduler, bot):
         super().__init__(
             scheduler=scheduler,

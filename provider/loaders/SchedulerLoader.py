@@ -11,7 +11,7 @@ class SchedulerLoader:
             if file.endswith('.py'):
                 name = file.replace('.py', '')
                 module = importlib.import_module(f'application.schedulers.{name}')
-                moduleClass = getattr(module, f'{name.capitalize()}')
+                moduleClass = getattr(module, f'{name.capitalize()}Scheduler')
                 moduleClass = moduleClass(self.scheduler, self.bot)
                 
                 for schedulerEnable in moduleClass.getSchedulers():

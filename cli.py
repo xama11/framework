@@ -52,7 +52,7 @@ def _paths_(area):
 
 def _build_(area, name):
     with open(f'provider/templates/{area}.py', 'r') as original:
-        original = original.read().replace('Example', str(name)).replace('example', str(name).lower())
+        original = original.read().replace('Example', str(name).capitalize()).replace('example', str(name).lower())
     
     with open(f'{_paths_(area)}/{str(name).lower()}.py', 'w') as file:
         file.write(original)

@@ -7,7 +7,8 @@ class ExampleButtons(discord.ui.View):
 
     @discord.ui.button(label="Button", style=discord.ButtonStyle.green, custom_id='example-button')
     async def button(self, interaction, button):
-        await interaction.response.send_modal(ExampleModal(self.container))
+        # Code here
+        ...
 
 class ExampleModal(discord.ui.Modal, title="Example Modal"):
     def __init__(self, container):
@@ -21,7 +22,8 @@ class ExampleModal(discord.ui.Modal, title="Example Modal"):
     )
 
     async def on_submit(self, interaction: discord.Interaction):
-        await interaction.response.send_message(embed=self.container.embedSuccess(interaction), ephemeral=True)
+        # Code here
+        ...
 
 class ExampleSeletor(discord.ui.View):
     def __init__(self, container):
@@ -43,4 +45,5 @@ class ExampleSeletor(discord.ui.View):
         return select
 
     async def select_callback(self, interaction:discord.Interaction):
-        await interaction.response.send_message(interaction.data['values'][0], ephemeral=True)
+        # Code here
+        ...

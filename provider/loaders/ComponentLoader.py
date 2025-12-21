@@ -26,7 +26,7 @@ class ComponentLoader:
             
             for className in classes:
                 if 'Modal' in className: continue
-                if '_' in className[0]: continue
+                if 'TMP' in className[0]: continue
                 
                 componentFile = importlib.import_module(f'application.containers.components.{name}')
                 componentClass = getattr(componentFile, f'{className}')
