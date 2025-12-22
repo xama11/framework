@@ -10,8 +10,7 @@ class ComponentLoader:
         basePath = 'application/containers'
 
         for file in os.listdir(basePath):
-            if not file.endswith(".py"):
-                continue
+            if not file.endswith(".py"): continue
 
             name = file.replace('.py', '')
 
