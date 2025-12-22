@@ -30,8 +30,10 @@ class SQLQueryBuilder:
         self.command = self.command.limit(value)
         return self
     
-    def orderBy(self, order):
-        self.command = self.command.orderby(getattr(self.table, order))
+    def orderBy(self, table, order='desc'):
+        order = Order.desc if order == 'desc' else Order.asc
+        
+        self.command = self.command.orderby(table, order=Order.desc)
         return self
  
     def _remove_(self):

@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="dark">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard / xama11</title>
+
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/styles/atom-one-dark.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/highlight.min.js"></script>
+
+    <!-- and it's easy to individually load additional languages -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/languages/go.min.js"></script>
+
+    <script>hljs.highlightAll();</script>
+
+    <!-- Tailwind CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class'
+        }
+    </script>
+
+    <!-- Alpine.js -->
+    <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+</head>
+
+<body class="bg-neutral-950 text-gray-200">
+    <div x-data="{ open: true }" class="flex min-h-screen">
+
+        <aside class="w-64 bg-black p-4" x-show="open">
+            <h1 class="text-xl font-bold mb-6">Dashboard</h1>
+
+            <nav class="space-y-3">
+                <a href="/" class="block p-2 rounded hover:bg-neutral-900">Home</a>
+                <a href="/migrations" class="block p-2 rounded hover:bg-neutral-900">Migrations</a>
+            </nav>
+        </aside>
+
+        <main class="flex-1 p-6 bg-neutral-950">
+            <header class="flex items-center justify-between mb-6">
+                <button @click="open = !open" class="px-3 py-2 bg-black rounded hover:bg-neutral-900">
+                    ☰
+                </button>
+
+                <div class="flex items-center gap-3">
+                    <span class="text-sm text-gray-400 mr-4">xama11 // octapus v1.0</span>
+
+                    <a href="/credits">Credits</a>
+                    <a href="https://github.com/xama11/framework" target="_blank"
+                        class="flex items-center gap-2 px-3 py-1.5 text-sm bg-black border border-gray-800 rounded hover:bg-neutral-900 transition">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                            <path
+                                d="M12 .5C5.73.5.5 5.74.5 12.03c0 5.1 3.29 9.42 7.86 10.95.58.1.79-.25.79-.56v-2.1c-3.2.7-3.87-1.38-3.87-1.38-.53-1.36-1.3-1.72-1.3-1.72-1.06-.74.08-.73.08-.73 1.17.08 1.79 1.21 1.79 1.21 1.04 1.79 2.73 1.27 3.4.97.1-.76.41-1.27.74-1.56-2.55-.29-5.23-1.28-5.23-5.7 0-1.26.45-2.3 1.19-3.11-.12-.29-.52-1.46.11-3.04 0 0 .97-.31 3.18 1.19a11.1 11.1 0 0 1 5.8 0c2.21-1.5 3.18-1.19 3.18-1.19.63 1.58.23 2.75.11 3.04.74.81 1.19 1.85 1.19 3.11 0 4.43-2.69 5.41-5.25 5.7.42.37.79 1.1.79 2.22v3.29c0 .31.21.66.8.55 4.56-1.53 7.85-5.85 7.85-10.95C23.5 5.74 18.27.5 12 .5z" />
+                        </svg>
+                        GitHub
+                    </a>
+                </div>
+            </header>
+
+            {% block content%}{%endblock%}
+
+        </main>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,81 @@
+{% extends "layouts/app.html" %}
+
+{% block content %}
+
+<section class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
+    <div class="bg-black p-5 rounded-lg shadow border border-gray-900">
+        <h3 class="text-sm text-gray-400">Migrations</h3>
+        <p class="text-2xl font-bold mt-2">{{ migrations | length}}</p>
+    </div>
+</section>
+
+<section class="bg-black rounded-lg p-5 border border-gray-900">
+    <div class="flex items-center justify-between mb-4">
+        <div>
+            <h2 class="text-lg font-semibold">Migrations</h2>
+            <p class="">ALERT: Os migrations padrão do framework não irá aparecer, apenas os que você criar.</p>
+        </div>
+
+        {% import "components/modal.html" as createMigrations%}
+
+        {% call createMigrations.modal(
+        "+ Nova Migration",
+        "Migration",
+        "px-4 py-2 bg-indigo-600 hover:bg-indigo-700 rounded text-sm font-medium transition"
+        ) %}
+        <form method="POST" action="/migration/create" class="flex flex-col gap-2">
+            <input type="text" name="name" placeholder="Nome da migration" class="border rounded px-2 py-1" />
+            <button type="submit"
+                class="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 rounded text-sm font-medium transition">
+                Criar
+            </button>
+        </form>
+        {% endcall %}
+    </div>
+
+    <!-- Search -->
+    <div class="mb-4">
+        <!-- TODO: Botar pra funcionar -->
+        <form action="" method="get">
+            <input type="text" name="migration" placeholder="Buscar migrations..."
+                class="w-full px-4 py-2 bg-neutral-900 border border-gray-800 rounded focus:outline-none focus:border-indigo-500">
+        </form>
+    </div>
+
+    <!-- Table -->
+    <div class="overflow-x-auto">
+        <table class="w-full text-sm">
+            <thead class="text-gray-400 border-b border-gray-800">
+                <tr>
+                    <th class="text-left py-3 px-2">Nome</th>
+                    <th class="text-left py-3 px-2">Data</th>
+                    <th class="text-left py-3 px-2">Status</th>
+                    <th class="text-left py-3 px-2">Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+
+                {% for migration in migrations%}
+                <tr class="border-b border-gray-800 hover:bg-neutral-900 transition">
+                    <td class="py-3 px-2 font-medium">{{migration['name']}}</td>
+                    <td class="py-3 px-2 font-medium">{{migration['activated'] if migration['activated'] else
+                        '0000-00-00 00:00:00'}}</td>
+                    <td class="py-3 px-2">
+                        <span
+                            class="px-2 py-1 text-xs bg-{{'green' if migration['activated'] else 'red'}}-900/30 text-{{'green' if migration['activated'] else 'red'}}-400 rounded border border-{{'green' if migration['activated'] else 'red'}}-800">
+
+                            {{'Ativa' if migration['activated'] else 'Livre'}}
+                        </span>
+                    </td>
+                    <td class="py-3 px-2 flex gap-2">
+                        <a href="/migration/{{migration['name']}}"
+                            class="px-3 py-1 bg-blue-900/30 hover:bg-blue-900/50 text-blue-400 rounded text-xs transition">Editar</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</section>
+
+{% endblock %}

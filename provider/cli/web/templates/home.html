@@ -1,0 +1,81 @@
+{% extends "layouts/app.html" %}
+
+{% block content %}
+
+<section class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
+    <div class="bg-black p-5 rounded-lg shadow border border-gray-900">
+        <h3 class="text-sm text-gray-400">Migrations</h3>
+        <p class="text-2xl font-bold mt-2">{{ migrations | length}}</p>
+    </div>
+
+    <div class="bg-black p-5 rounded-lg shadow border border-gray-900">
+        <h3 class="text-sm text-gray-400">Commands (Cogs)</h3>
+        <p class="text-2xl font-bold mt-2">{{commands}}</p>
+    </div>
+</section>
+
+<section x-data="{ tab: 'terminal' }" class="mt-8 bg-black rounded-lg p-5 border border-gray-900">
+    <h2 class="text-lg font-semibold mb-4">Registros</h2>
+
+    <div class="flex gap-4 border-b border-gray-800 mb-4">
+        <button @click="tab = 'terminal'"
+            :class="tab === 'terminal' ? 'border-b-2 border-indigo-500 text-indigo-400' : 'text-gray-400'" class="pb-2">
+            Terminal
+        </button>
+
+        <button @click="tab = 'migrations'"
+            :class="tab === 'migrations' ? 'border-b-2 border-indigo-500 text-indigo-400' : 'text-gray-400'"
+            class="pb-2">
+            Migrations (Loaded)
+        </button>
+    </div>
+
+    <div x-show="tab === 'terminal'">
+        <table class="w-full text-sm">
+            <thead class="text-gray-400 border-b border-gray-800">
+                <tr>
+                    <th class="text-left py-2">ID</th>
+                    <th class="text-left py-2">Command</th>
+                    <th class="text-left py-2">Data</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for terminal in terminals %}
+                <tr class="border-b border-gray-800">
+                    <td class="py-2">{{terminal[0]}}</td>
+                    <td>{{terminal[1]}}</td>
+                    <td>{{terminal[2]}}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <div x-show="tab === 'migrations'">
+        <table class="w-full text-sm">
+            <thead class="text-gray-400 border-b border-gray-800">
+                <tr>
+                    <th class="text-left py-2">ID</th>
+                    <th class="text-left py-2">Migration</th>
+                    <th class="text-left py-2">Activated at</th>
+                    <td></td>
+                </tr>
+            </thead>
+            <tbody>
+                {% for migration in migrations %}
+                <tr class="border-b border-gray-800">
+                    <td class="py-2">{{migration[0]}}</td>
+                    <td>{{migration[1]}}</td>
+                    <td>{{migration[2]}}</td>
+                    <td class="text-indigo-400">
+                        <a href="/migration/{{migration[1]}}"
+                            class="px-3 py-1 bg-blue-900/30 hover:bg-blue-900/50 text-blue-400 rounded text-xs transition">Editar</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</section>
+
+{% endblock %}

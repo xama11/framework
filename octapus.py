@@ -3,14 +3,16 @@ import importlib
 from typing import List, Optional
 from pathlib import Path
 
+from database.models.terminals import TerminalsModel
+
 from dotenv import load_dotenv
 load_dotenv()
 
 class OctapusCLI:
     PROVIDER_PATH = 'provider/cli'
     
-    def __init__(self, args: Optional[List[str]] = None):
-        self.args = args if args is not None else sys.argv[1:]
+    def __init__(self, args= sys.argv[1:]):
+        self.args = args
         self.cmd = self.args[0] if self.args else None
         self.parts = self.cmd.split(':')
         self.name = None
@@ -102,15 +104,15 @@ Available commands are located in: provider/cli/
     def run_command(self, command: str, area: str):
         try:
             module_path = f'provider.cli.{command}'
-            module = importlib.import_module(module_path) # provider.cli.load
-            
+            module = importlib.import_module(module_path)
             
             class_name = command.capitalize()
             command_class = getattr(module, class_name)
             
             instance = command_class(command, area, self.name)
             
-            return instance.run()
+            instance.run()
+            TerminalsModel().add(command=f'{command}:{area} {self.name}')
             
         except ImportError as e:
             raise ImportError(f"Failed to import command module '{command}': {e}")

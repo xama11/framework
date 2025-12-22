@@ -1,0 +1,30 @@
+{% extends "layouts/app.html" %}
+
+{% block content %}
+
+<section>
+    <form id="editForm" method="post" action="/migration/{{name}}" class="space-y-4">
+        <textarea name="code" id="code" class="hidden" aria-hidden="true"></textarea>
+
+        <pre contenteditable="true"
+            class="editable-pre rounded"><code class="language-python rounded">{{file}}</code></pre>
+
+        <div class="flex justify-end">
+            <button type="submit" class="px-4 py-2 bg-green-600 hover:bg-green-700 text-sm rounded transition">
+                Atualizar
+            </button>
+        </div>
+    </form>
+</section>
+
+<script>
+    const form = document.getElementById('editForm');
+    form.addEventListener('submit', (e) => {
+        // Pega o texto do <code> (mantendo quebras de linha)
+        const codeContent = document.querySelector('pre.editable-pre code').innerText;
+
+        document.getElementById('code').value = codeContent;
+    });
+</script>
+
+{% endblock %}
