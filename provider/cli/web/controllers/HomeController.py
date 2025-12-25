@@ -1,13 +1,13 @@
-from flask import render_template
-
+from flask import render_template, redirect, url_for
+from provider.cli.web.controllers.Controller import Controller
 import os
 
 from database.models.migrations import MigrationsModel
 from database.models.terminals import TerminalsModel
 
-class HomeController():
+class HomeController(Controller):
     def __init__(self, request):
-        self.request = request
+        super().__init__(request)
     
     def view(self):
         commands = len([file for file in os.listdir('application/cogs/') if file.endswith('.py')])

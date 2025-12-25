@@ -30,12 +30,20 @@
 <body class="bg-neutral-950 text-gray-200">
     <div x-data="{ open: true }" class="flex min-h-screen">
 
-        <aside class="w-64 bg-black p-4" x-show="open">
+        <aside class="w-64 bg-black p-4 text-white" x-show="open">
             <h1 class="text-xl font-bold mb-6">Dashboard</h1>
 
-            <nav class="space-y-3">
-                <a href="/" class="block p-2 rounded hover:bg-neutral-900">Home</a>
-                <a href="/migrations" class="block p-2 rounded hover:bg-neutral-900">Migrations</a>
+            <nav class="space-y-4">
+                <div>
+                    <span class="font-semibold">Geral</span>
+                    <a href="/" class="block p-2 rounded hover:bg-neutral-900">Home</a>
+                </div>
+
+                <div>
+                    <span class="font-semibold">Sistema</span>
+                    <a href="/migrations" class="block p-2 rounded hover:bg-neutral-900">Migrations</a>
+                    <a href="/commands" class="block p-2 rounded hover:bg-neutral-900">Commands</a>
+                </div>
             </nav>
         </aside>
 

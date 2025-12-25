@@ -10,7 +10,7 @@ class Sync(commands.Cog):
     @commands.command()
     async def sync(self, ctx):
         if not ctx.author.guild_permissions.administrator: return
-        await ctx.send("Carregando os comandos\n-# Isso pode demorar...")
+        await ctx.send("Loading sync...")
         await self.bot.tree.sync()
 
 async def setup(bot):

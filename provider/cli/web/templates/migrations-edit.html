@@ -2,25 +2,47 @@
 
 {% block content %}
 
-<section>
-    <form id="editForm" method="post" action="/migration/{{name}}" class="space-y-4">
-        <textarea name="code" id="code" class="hidden" aria-hidden="true"></textarea>
+<div x-data="{ tab: 'codigo' }" class="w-full">
+    <div class="flex border-b border-gray-700 mb-4">
+        <button :class="tab === 'opcoes' ? 'border-b-2 border-blue-500 text-blue-500' : 'text-gray-400'"
+            class="px-4 py-2 font-medium" @click="tab = 'opcoes'">
+            Opções
+        </button>
+        <button :class="tab === 'codigo' ? 'border-b-2 border-blue-500 text-blue-500' : 'text-gray-400'"
+            class="px-4 py-2 font-medium" @click="tab = 'codigo'">
+            Código
+        </button>
+    </div>
 
-        <pre contenteditable="true"
-            class="editable-pre rounded"><code class="language-python rounded">{{file}}</code></pre>
+    <div>
+        <div x-show="tab === 'codigo'">
+            <section>
+                <form id="editForm" method="post" action="/migration/{{name}}" class="space-y-4">
+                    <textarea name="code" id="code" class="hidden" aria-hidden="true"></textarea>
 
-        <div class="flex justify-end">
-            <button type="submit" class="px-4 py-2 bg-green-600 hover:bg-green-700 text-sm rounded transition">
-                Atualizar
-            </button>
+                    <pre contenteditable="true"
+                        class="editable-pre rounded"><code class="language-python rounded">{{file}}</code></pre>
+
+                    <div class="flex justify-end">
+                        <button type="submit"
+                            class="px-4 py-2 bg-green-600 hover:bg-green-700 text-sm rounded transition">
+                            Atualizar
+                        </button>
+                    </div>
+                </form>
+            </section>
+
         </div>
-    </form>
-</section>
+        <div x-show="tab === 'opcoes'">
+            <!-- Conteúdo das opções -->
+            <p class="text-white">Aqui vão as opções...</p>
+        </div>
+    </div>
+</div>
 
 <script>
     const form = document.getElementById('editForm');
     form.addEventListener('submit', (e) => {
-        // Pega o texto do <code> (mantendo quebras de linha)
         const codeContent = document.querySelector('pre.editable-pre code').innerText;
 
         document.getElementById('code').value = codeContent;

@@ -1,0 +1,1 @@
+[ ] Bug quando tentamos visualizar uma migration já deletada

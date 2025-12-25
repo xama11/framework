@@ -1,0 +1,99 @@
+{% extends "layouts/app.html" %}
+
+{% block content %}
+
+<div x-data="{ tab: 'opcoes' }" class="w-full">
+    <div class="flex border-b border-gray-700 mb-4">
+        <button :class="tab === 'opcoes' ? 'border-b-2 border-blue-500 text-blue-500' : 'text-gray-400'"
+            class="px-4 py-2 font-medium" @click="tab = 'opcoes'">
+            Opções
+        </button>
+        <button :class="tab === 'codigo' ? 'border-b-2 border-blue-500 text-blue-500' : 'text-gray-400'"
+            class="px-4 py-2 font-medium" @click="tab = 'codigo'">
+            Código
+        </button>
+    </div>
+
+    <div>
+        <div x-show="tab === 'codigo'">
+            <section>
+                <form id="editForm" method="post" action="/command/{{name}}" class="space-y-4">
+                    <textarea name="code" id="code" class="hidden" aria-hidden="true"></textarea>
+
+                    <pre contenteditable="true"
+                        class="editable-pre rounded"><code class="language-python rounded">{{file}}</code></pre>
+
+                    <div class="flex justify-end">
+                        <button type="submit"
+                            class="px-4 py-2 bg-green-600 hover:bg-green-700 text-sm rounded transition">
+                            Atualizar
+                        </button>
+                    </div>
+                </form>
+            </section>
+        </div>
+        <div x-show="tab === 'opcoes'">
+            <div class="grid grid-cols-3 gap-4">
+                <div class="bg-black p-4 rounded">
+                    <form action="/decorator/add" method="post">
+                        <input type="hidden" name="command" value="{{name}}">
+
+                        <p class="mb-2 font-medium">Decorator</p>
+                        <select name="decorator" class="w-full text-gray-400 p-1 rounded bg-neutral-950">
+                            {% for decorator in decorators%}
+                            <option value="{{decorator}}">{{decorator[:-3].capitalize()}}</option>
+                            {% endfor %}
+                        </select>
+                        <div class="mt-4">
+                            <button class="bg-indigo-500 px-4 py-1 rounded" type="submit">Add</button>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Lista de decorators registrados -->
+                <div class="bg-black p-4 rounded col-span-2">
+                    <p class="mb-3 font-medium">Your Decorators</p>
+
+                    {% if (yourDecorators|length) <=0%}
+                    <p class="text-gray-500 text-sm">No decorators</p>
+
+                    {% else%}
+                    <div class="flex flex-col gap-1">
+                        {% for decorator in yourDecorators%}
+                        <ul class="space-y-2">
+                            <li class="flex items-center justify-between bg-neutral-950 px-3 py-2 rounded">
+                                {% set decoratorFile = decorator[1] %}
+                                <span>{{decoratorFile.split('/')[2][:-3].capitalize()}}</span>
+
+                                <form action="/decorator/remove" method="post">
+                                    <input type="hidden" name="id" value="{{decorator[0]}}">
+
+                                    <button class="text-red-500 hover:text-red-400 text-sm">
+                                        Delete
+                                    </button>
+                                </form>
+                            </li>
+                        </ul>
+                        {% endfor %}
+                    </div>
+
+                    {%endif%}
+
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<script>
+    const form = document.getElementById('editForm');
+    form.addEventListener('submit', (e) => {
+        const codeContent = document.querySelector('pre.editable-pre code').innerText;
+
+        document.getElementById('code').value = codeContent;
+    });
+</script>
+
+{% endblock %}

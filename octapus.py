@@ -124,8 +124,7 @@ Available commands are located in: provider/cli/
 def main():
     try:
         cli_tool = OctapusCLI()
-        result = cli_tool.manager()
-        print(result)
+        cli_tool.manager()
         return 0
     except KeyboardInterrupt:
         print("\n\nOperation cancelled by user")

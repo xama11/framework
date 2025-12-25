@@ -96,7 +96,6 @@ class BaseLoader:
                         f"(./database/migrations/{table}.py){RESET}"
                     )
                     
-    # TODO: Verificar se o comando para colocar o seeder sofreu force igual o de tabelas
     def loadSeeders(self):
         seeders = self.seeders()
 

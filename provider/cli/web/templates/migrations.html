@@ -13,13 +13,12 @@
     <div class="flex items-center justify-between mb-4">
         <div>
             <h2 class="text-lg font-semibold">Migrations</h2>
-            <p class="">ALERT: Os migrations padrão do framework não irá aparecer, apenas os que você criar.</p>
         </div>
 
         {% import "components/modal.html" as createMigrations%}
 
         {% call createMigrations.modal(
-        "+ Nova Migration",
+        "+ New Migration",
         "Migration",
         "px-4 py-2 bg-indigo-600 hover:bg-indigo-700 rounded text-sm font-medium transition"
         ) %}
@@ -27,7 +26,7 @@
             <input type="text" name="name" placeholder="Nome da migration" class="border rounded px-2 py-1" />
             <button type="submit"
                 class="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 rounded text-sm font-medium transition">
-                Criar
+                Create
             </button>
         </form>
         {% endcall %}
@@ -64,12 +63,14 @@
                         <span
                             class="px-2 py-1 text-xs bg-{{'green' if migration['activated'] else 'red'}}-900/30 text-{{'green' if migration['activated'] else 'red'}}-400 rounded border border-{{'green' if migration['activated'] else 'red'}}-800">
 
-                            {{'Ativa' if migration['activated'] else 'Livre'}}
+                            {{'ON' if migration['activated'] else 'OFF'}}
                         </span>
                     </td>
                     <td class="py-3 px-2 flex gap-2">
                         <a href="/migration/{{migration['name']}}"
-                            class="px-3 py-1 bg-blue-900/30 hover:bg-blue-900/50 text-blue-400 rounded text-xs transition">Editar</a>
+                            class="px-3 py-1 bg-blue-900/30 hover:bg-blue-900/50 text-blue-400 rounded text-xs transition">Edit</a>
+                        <a href="#"
+                            class="px-3 py-1 bg-red-900/30 hover:bg-red-900/50 text-red-400 rounded text-xs transition">Delete</a>
                     </td>
                 </tr>
                 {% endfor %}
