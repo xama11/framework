@@ -111,8 +111,9 @@ Available commands are located in: provider/cli/
             
             instance = command_class(command, area, self.name)
             
-            instance.run()
+            result = instance.run()
             TerminalsModel().add(command=f'{command}:{area} {self.name}')
+            return result
             
         except ImportError as e:
             raise ImportError(f"Failed to import command module '{command}': {e}")
@@ -124,7 +125,8 @@ Available commands are located in: provider/cli/
 def main():
     try:
         cli_tool = OctapusCLI()
-        cli_tool.manager()
+        result = cli_tool.manager()
+        print(result) if result else None
         return 0
     except KeyboardInterrupt:
         print("\n\nOperation cancelled by user")
