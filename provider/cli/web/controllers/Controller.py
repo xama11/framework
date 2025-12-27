@@ -9,5 +9,5 @@ class Controller:
         
         
     def setValues(self):
-        self.decorators = [decorator for decorator in os.listdir('application/decorators') if decorator.endswith('.py')]
+        self.decorators = [decorator for decorator in os.listdir('application/decorators') if decorator.endswith('.py') and not '_' in decorator]
         

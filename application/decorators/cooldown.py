@@ -3,7 +3,7 @@ from datetime import datetime, timezone
 
 from database.models.cooldowns import Cooldowns
 
-def cooldown(cmd, seconds):
+def Cooldown(cmd, seconds):
     async def wrap(interaction):
         cool = Cooldowns().filter(userId=interaction.user.id, command=cmd).first()
         
