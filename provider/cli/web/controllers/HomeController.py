@@ -12,7 +12,7 @@ class HomeController(Controller):
     def view(self):
         
         
-        migrations = [migration for migration in MigrationsModel().get().limit(10).all() if not migration[1][0]=='0']
+        migrations = [file for file in sorted(os.listdir('database/migrations/')) if file.endswith('.py') and not '0' in file[0]]
         terminals = TerminalsModel().get().limit(10).orderBy('id').all()
 
         return render_template(
