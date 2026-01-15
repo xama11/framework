@@ -3,4 +3,6 @@ apscheduler==3.11.0
 python-dotenv==1.1.1
 pymysql==1.1.2
 click==8.2.1
+
 pypika
+flask
