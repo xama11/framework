@@ -6,6 +6,10 @@ class Database:
         self.driver = os.getenv('DB_DRIVE')
     
     def connect(self):
+        if not (os.path.exists('.env')):
+            print('\n [ERROR] Your project not have .env!\n')
+            exit()
+
         if (self.driver.lower() == 'sqlite3'):
             import sqlite3
             return sqlite3.connect('database/database.db')
@@ -19,4 +23,4 @@ class Database:
             )
         else:
             print(' [ERROR] Invalid database, please correct to a valid database.')
-            print(' [ERROR] Wiki: https://github.com/xama11/doc')
+            print(' [ERROR] Wiki: https://github.com/xama11/framework/wiki')

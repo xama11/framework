@@ -1,13 +1,13 @@
 from provider.bases.BaseLoader import BaseLoader
 from provider.colors import *
 
-
 class Load:
     def __init__(self, command, area, name):
         self.command = command
         self.area = area
         self.name = name
         
+    # Trocar ifs para funções
     def run(self):
         
         if self.name =='fresh':
