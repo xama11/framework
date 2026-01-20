@@ -1,4 +1,4 @@
-from application.decorators import cooldown
-from application.decorators import hasadmin
+from application.decorators.defaults import cooldown
+from application.decorators.defaults import hasadmin
 
-# Import your decorators
+# This folder loads all the project's standard decorators, do not put yours here!

@@ -1,5 +1,5 @@
-from provider.cli.flags.help import HelpFlag
-from provider.cli.flags.info import InfoFlag
+from provider.cli.messages.help import HelpFlag
+from provider.cli.messages.info import InfoFlag
 
 from database.models.terminals import TerminalsModel
 
@@ -13,13 +13,14 @@ class CommandsManager:
         self.args = args
         self.provider_path = 'provider/cli'
         self.cmd = self.args[0] if self.args else None
-        self.parts = self.cmd.split(':')
 
     def manager(self):
        
         if not self.args or not self.cmd or ':' not in self.cmd:
-            return InfoFlag.message()
+            return InfoFlag().message()
         
+        self.parts = self.cmd.split(':')
+
         try:
             command, area = self._parse_command()
         except ValueError as e:
@@ -28,7 +29,7 @@ class CommandsManager:
         if not os.path.exists(f'provider/cli/{command}.py'):
             return f"Error: Command '{command}' does not exist"
         
-        if len(self.args) < 2: return InfoFlag.message()
+        if len(self.args) < 2: return InfoFlag().message()
         
         try:
             return self.run_command(command, area)
@@ -56,6 +57,7 @@ class CommandsManager:
             )
 
     def _parse_command(self):
+        
         if len(self.parts) != 2:
             
             raise ValueError("Command format must be 'command:area'")

@@ -14,17 +14,13 @@ class OctapusCLI:
     
     def __init__(self, args = sys.argv[1:]):
         self.args = args
-        self.provider_path = 'provider/cli'
-        self.cmd = self.args[0] if self.args else None
-        self.parts = self.cmd.split(':')
         
     def manager(self):
         return CommandsManager(self.args).manager() if not FlagsManager(self.args).run() else None
 
 def main():
     try:
-        cli_tool = OctapusCLI()
-        result = cli_tool.manager()
+        result = OctapusCLI().manager()
         print(result) if result else None
         return 0
     except KeyboardInterrupt:
