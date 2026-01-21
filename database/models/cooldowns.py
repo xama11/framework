@@ -1,5 +1,5 @@
-from provider.bases.BaseModel import BaseModel
+from provider.orm.BaseORM import BaseORM
 
-class Cooldowns(BaseModel):
+class Cooldowns(BaseORM):
     def __init__(self, table='cooldowns'):
         super().__init__(table)

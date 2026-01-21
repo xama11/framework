@@ -1,6 +1,6 @@
 from pypika import Field, Table, JoinType, Order
 
-class SQLQueryBuilder:
+class QueryORM:
     def __init__(self, conn, cursor, comment, table):
         self.comment = comment
         self.table = table

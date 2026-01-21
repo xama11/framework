@@ -1,6 +1,6 @@
 from pypika import Query
 
-class ExecutorsModel:
+class ExecutorORM:
     def __init__(self, conn, cursor, command, table : Query):
         self.conn = conn
         self.cursor = cursor

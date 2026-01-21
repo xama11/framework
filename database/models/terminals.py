@@ -1,5 +1,5 @@
-from provider.bases.BaseModel import BaseModel
+from provider.orm.BaseORM import BaseORM
 
-class TerminalsModel(BaseModel):
+class TerminalsModel(BaseORM):
     def __init__(self, table='terminals'):
         super().__init__(table)

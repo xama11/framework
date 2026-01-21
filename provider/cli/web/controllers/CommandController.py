@@ -1,7 +1,6 @@
 from flask import render_template, redirect, url_for
 from provider.cli.web.controllers.Controller import Controller
 from octapus import OctapusCLI
-import os
 
 from database.models.decorators import DecoratorsModel
 
@@ -10,12 +9,9 @@ class CommandController(Controller):
         super().__init__(request)
     
     def view(self):
-        
-        commands = [file for file in os.listdir('application/cogs/') if file.endswith('.py')]
-        
         return render_template(
             'commands.html',
-            commands=commands
+            commands=self.commands
         )
         
     def edit(self, name):

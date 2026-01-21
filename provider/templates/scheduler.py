@@ -1,7 +1,7 @@
 from datetime import datetime, timedelta
-from provider.bases.BaseScheduler import BaseScheduler
+from provider.scheduler.BaseScheduler import BaseScheduler
 from database.models.scheduler import Scheduler
-from provider.utils.SchedulerUtils import *
+from provider.scheduler.UtilsScheduler import *
 
 # Your imports
 
@@ -17,13 +17,13 @@ class ExampleScheduler(BaseScheduler):
     # id = ExampleId
     async def register(self, id, seconds):  # Create a new scheduled task
         date = datetime.now()+timedelta(seconds=seconds) # NOT DELETE
-        SchedulerUtils.open(id, date) # NOT DELETE
+        SchedulerUtils().open(id, date) # NOT DELETE
         
         self.scheduler.add_job(self.run, 'date', run_date=date, args=[id])
 
     
     async def run(self, id):
-        SchedulerUtils.close(self, id) # NOT DELETE
+        SchedulerUtils().close(id) # NOT DELETE
         
         date = self.getAction(id)
         print(date)

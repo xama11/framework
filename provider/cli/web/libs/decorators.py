@@ -11,7 +11,7 @@ class AddDecorator(ast.NodeTransformer):
             node.decorator_list.insert(3, decorator)
         return node
 
-class DecoratorServices:
+class DecoratorLib:
     def __init__(self, command, decoratorName):
         self.command = command
         self.decoratorName = decoratorName

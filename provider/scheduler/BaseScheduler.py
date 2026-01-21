@@ -13,6 +13,7 @@ class BaseScheduler:
 
     def getAction(self, id):
         conn = Database().connect()
+
         cursor = conn.cursor()
 
         query = f"SELECT * FROM {self.table} WHERE id = ?"

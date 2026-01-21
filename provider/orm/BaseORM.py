@@ -1,15 +1,12 @@
-# NOTE DEV:
-# https://github.com/silvaleal/dpy2-framework/wiki/4.-models-database
-
-from provider.builders.SQLQueryBuilder import SQLQueryBuilder
+from provider.orm.QueryORM import QueryORM
+from provider.orm.ExecutorORM import ExecutorORM
 from provider.database import Database
-from provider.executors.ExecutorModel import ExecutorsModel
 import os
 
 from pypika import Query, Table
 from pypika.dialects import MySQLQuery
 
-class BaseModel(SQLQueryBuilder, ExecutorsModel):
+class BaseORM(QueryORM, ExecutorORM):
     def __init__(self, table):
         self.conn = Database().connect()
         self.cursor = self.conn.cursor()

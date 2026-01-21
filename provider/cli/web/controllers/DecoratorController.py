@@ -1,6 +1,7 @@
 from flask import render_template, redirect, url_for
 from provider.cli.web.controllers.Controller import Controller
-from provider.cli.web.services.DecoratorServices import DecoratorServices
+
+from provider.cli.web.libs.decorators import DecoratorLib
 import os
 
 from database.models.decorators import DecoratorsModel
@@ -18,7 +19,7 @@ class DecoratorController(Controller):
         commandFile = f"application/cogs/{command}.py"
         
         if not DecoratorsModel().filter(decoratorFile=decoratorFile, commandFile=commandFile).first():
-            DecoratorServices(command, decoratorCode).run()
+            DecoratorLib(command, decoratorCode).run()
             DecoratorsModel().add(decoratorFile=decoratorFile, commandFile=commandFile)
         
         return redirect(self.request.referrer)

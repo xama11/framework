@@ -1,14 +1,12 @@
 from provider.database import Database
 from provider.colors import *
 import os
-import sys
 import importlib
 
 from database.models.migrations import MigrationsModel
 from database.models.seeds import SeedsModel
 
-
-class BaseLoader:
+class BaseMigrations:
     def __init__(self):
         self.connection = Database().connect()
         self.cursor = self.connection.cursor()

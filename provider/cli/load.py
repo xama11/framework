@@ -1,4 +1,4 @@
-from provider.bases.BaseLoader import BaseLoader
+from provider.migrations.BaseMigrations import BaseMigrations
 from provider.colors import *
 
 class Load:
@@ -11,7 +11,7 @@ class Load:
     def run(self):
         
         if self.name =='fresh':
-            loader = BaseLoader()
+            loader = BaseMigrations()
             loader.run()
             
             print(

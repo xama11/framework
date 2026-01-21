@@ -1,5 +1,5 @@
-from provider.bases.BaseModel import BaseModel
+from provider.orm.BaseORM import BaseORM
 
-class ExampleModel(BaseModel):
+class ExampleModel(BaseORM):
     def __init__(self, table='example'):
         super().__init__(table)
