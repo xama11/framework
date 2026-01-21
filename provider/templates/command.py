@@ -13,7 +13,6 @@ class Example(commands.Cog):
         self.container = ExampleContainer()
 
     @app_commands.command(name="example", description="Example description")
-    @cooldown.cooldown('example', seconds=100)
     async def example(self, interaction):
         ...
         
