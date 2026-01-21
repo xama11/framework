@@ -1,8 +1,6 @@
 from provider.colors import *
-import shutil
-
 from datetime import datetime
-
+import shutil
 import os
 
 class Install:
@@ -24,7 +22,6 @@ class Install:
 
         os.system(f'cd {historic} && git clone {kit['repository_url']} {installFile}')
         self._transfer_file(f'{historic+"/"+installFile}')
-        # self._transfer_file(f'{historic+"/1768975778_ticket"}')
 
         print(f'\n {GREEN}[OCTAPUS] Kit installed: {kit['repository_url']} {RESET}\n')
 
@@ -39,23 +36,40 @@ class Install:
             },
         }
 
-    def _transfer_file(self, installPath):
-        for file in os.listdir(installPath):
+    def _transfer_file(self, path):
+        for file in os.listdir(path):
             if file in self._valid_kits()[self.name]['ignore-files']: continue
             
-            fullPath = os.path.join(installPath, file).replace('\\', '/')
+            self._create_file(path, file) if not file in self._valid_kits()[self.name]['sum-files'] else self._sum_file(path, file)
 
-            if os.path.isdir(fullPath):
-                self._transfer_file(fullPath)
+    def _sum_file(self, path, file):
+        fullPath = os.path.join(path, file).replace('\\', '/')
 
-            if not os.path.isdir(fullPath) and not "pycache" in fullPath:
-                originalPath = "/".join(fullPath.split('/')[4:])
-                projectPath = "/".join(os.path.dirname(os.path.abspath(__file__)).split('\\')[:-2])
+        originalPath = "/".join(fullPath.split('/')[4:])
+        projectPath = "/".join(os.path.dirname(os.path.abspath(__file__)).split('\\')[:-2])
+        newPosition = projectPath+"/"+originalPath
+    
+        with open(fullPath, encoding='utf-8') as file:
+            kitFile = file.read()
 
-                # print()
-                # print(f"File: {fullPath}")
-                # print(f'Moved to: {originalPath}')
-                # print(projectPath+"/"+originalPath)
-                # print()
+        with open(newPosition, 'a', encoding='utf-8') as oficialFile:
+            oficialFile.write(f"\n{kitFile}")
 
-                shutil.move(fullPath, projectPath+"/"+originalPath)
+    def _create_file(self, path, file):
+        fullPath = os.path.join(path, file).replace('\\', '/')
+
+        if os.path.isdir(fullPath):
+            self._transfer_file(fullPath)
+
+        if not os.path.isdir(fullPath) and not "pycache" in fullPath:
+            originalPath = "/".join(fullPath.split('/')[4:])
+            projectPath = "/".join(os.path.dirname(os.path.abspath(__file__)).split('\\')[:-2])
+            newPosition = projectPath+"/"+originalPath
+
+            # print()
+            # print(f"File: {fullPath}")
+            # print(f'Moved to: {originalPath}')
+            # print(projectPath+"/"+originalPath)
+            # print()
+
+            shutil.move(fullPath, newPosition)
