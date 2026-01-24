@@ -24,7 +24,7 @@ class Load:
             return f'\n [OCTAPUS] Migrations loaded\n'
         
         elif self.name =='refresh':
-            loader = BaseLoader()
+            loader = BaseMigrations()
             loader.run(force=True)
             
             print(
