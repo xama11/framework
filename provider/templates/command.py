@@ -19,7 +19,7 @@ class Example(commands.Cog):
     # the example for @example is the name of the command function
     @example.error
     async def error(self, interaction, error):
-        if interaction.response.is_done():
+        if not interaction.response.is_done():
             await interaction.response.send_message(error, ephemeral=True)
         
 async def setup(bot):
