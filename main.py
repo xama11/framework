@@ -7,7 +7,7 @@ import discord
 import os
 
 load_dotenv()
-                
+
 class Bot(commands.Bot):
     def __init__(self):
         self.scheduler = AsyncIOScheduler()
