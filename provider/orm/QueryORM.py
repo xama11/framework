@@ -20,10 +20,13 @@ class QueryORM:
         self.command = self.command.from_(self.table).select(param)
         return self
 
-    def _update_(self, **kwargs):
-        for arg in kwargs:
-            self.command = self.command.update(self.table).set(Field(arg), kwargs.get(arg))
+    def _update_(self, **kwargs): # TODO: Refresh edit method
+        column = self.command.update(self.table)
         
+        for arg in kwargs:
+            column = column.set(Field(arg), kwargs.get(arg))
+        
+        self.command = column
         return self
     
     def limit(self, value):
