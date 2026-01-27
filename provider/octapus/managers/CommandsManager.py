@@ -46,7 +46,7 @@ class CommandsManager:
             instance = commandClass(command, area, self.args[1])
             
             result = instance.run()
-            # TerminalsModel().add(command=f'{command}:{area} {self.args[1]}')
+            TerminalsModel().add(command=f'{command}:{area} {self.args[1]}')
             return result
             
         except ImportError as e:
@@ -59,7 +59,6 @@ class CommandsManager:
     def _parse_command(self):
         
         if len(self.parts) != 2:
-            
             raise ValueError("Command format must be 'command:area'")
         
         command, area = self.parts

@@ -10,12 +10,10 @@
         href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/styles/atom-one-dark.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/highlight.min.js"></script>
 
-    <!-- and it's easy to individually load additional languages -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/languages/go.min.js"></script>
 
     <script>hljs.highlightAll();</script>
 
-    <!-- Tailwind CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
@@ -23,52 +21,86 @@
         }
     </script>
 
-    <!-- Alpine.js -->
     <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
 </head>
 
-<body class="bg-neutral-950 text-gray-200">
+<body class="bg-neutral-950 text-gray-200 font-sans antialiased">
     <div x-data="{ open: true }" class="flex min-h-screen">
 
-        <aside class="w-64 bg-black p-4 text-white" x-show="open">
-            <h1 class="text-xl font-bold mb-6">Dashboard</h1>
+        <aside class="w-64 bg-neutral-900 border-r border-neutral-800 flex flex-col transition-all duration-300" 
+            :class="open ? 'translate-x-0' : '-translate-x-full absolute h-full z-50'"
+            x-show="open || window.innerWidth >= 1024">
+            
+            <div class="p-6 border-b border-neutral-800">
+                <h1 class="text-xl font-bold text-white tracking-tight flex items-center gap-2">
+                    <span class="text-indigo-500">xama11</span>
+                    <span class="text-neutral-500">/</span>
+                    <span>dashboard</span>
+                </h1>
+            </div>
 
-            <nav class="space-y-4">
+            <nav class="flex-1 overflow-y-auto p-4 space-y-8">
                 <div>
-                    <span class="font-semibold">Geral</span>
-                    <a href="/" class="block p-2 rounded">Home</a>
+                    <span class="text-xs font-semibold text-neutral-500 uppercase tracking-wider px-2 mb-3 block">Geral</span>
+                    <div class="space-y-1">
+                        <a href="/" class="flex items-center gap-2 px-3 py-2 text-sm font-medium rounded-lg text-gray-400 hover:text-white hover:bg-neutral-800 transition-all duration-200">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path></svg>
+                            Home
+                        </a>
+                    </div>
                 </div>
 
                 <div>
-                    <span class="font-semibold">Application</span>
-                    <a href="/migrations" class="block p-2 rounded">Migrations</a>
-                    <a href="/commands" class="block p-2 rounded">Commands</a>
+                    <span class="text-xs font-semibold text-neutral-500 uppercase tracking-wider px-2 mb-3 block">Application</span>
+                    <div class="space-y-1">
+                        <a href="/migrations" class="flex items-center gap-2 px-3 py-2 text-sm font-medium rounded-lg text-gray-400 hover:text-white hover:bg-neutral-800 transition-all duration-200">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4m0 5c0 2.21-3.582 4-8 4s-8-1.79-8-4"></path></svg>
+                            Migrations
+                        </a>
+                        <a href="/commands" class="flex items-center gap-2 px-3 py-2 text-sm font-medium rounded-lg text-gray-400 hover:text-white hover:bg-neutral-800 transition-all duration-200">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 9l3 3-3 3m5 0h3M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                            Commands
+                        </a>
+                    </div>
+                </div>
+
+                <div>
+                    <span class="text-xs font-semibold text-neutral-500 uppercase tracking-wider px-2 mb-3 block">Extensions</span>
+                    <div class="space-y-1">
+                        <a href="/kits" class="flex items-center gap-2 px-3 py-2 text-sm font-medium rounded-lg text-gray-400 hover:text-white hover:bg-neutral-800 transition-all duration-200">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path></svg>
+                            Kits
+                        </a>
+                    </div>
                 </div>
             </nav>
         </aside>
 
-        <main class="flex-1 p-6 bg-neutral-950">
-            <header class="flex items-center justify-between mb-6">
-                <button @click="open = !open" class="px-3 py-2 bg-black rounded">
-                    ☰
+        <main class="flex-1 flex flex-col min-w-0 bg-neutral-950 transition-all duration-300">
+            <header class="flex items-center justify-between p-6 border-b border-neutral-800/50">
+                <button @click="open = !open" class="p-2 text-gray-400 hover:text-white hover:bg-neutral-900 rounded-lg transition-colors">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
                 </button>
 
-                <div class="flex items-center gap-3">
-                    <span class="text-sm text-gray-400 mr-4">xama11 // octapus v1.0</span>
+                <div class="flex items-center gap-4">
+                    <span class="hidden md:inline-flex text-xs font-mono text-neutral-500 bg-neutral-900 border border-neutral-800 px-2 py-1 rounded">octapus v1.0</span>
 
-                    <a href="/credits">Credits</a>
+                    <div class="h-4 w-px bg-neutral-800"></div>
+
+                    <a href="/credits" class="text-sm text-gray-400 hover:text-white transition-colors">Credits</a>
                     <a href="https://github.com/xama11/framework" target="_blank"
-                        class="flex items-center gap-2 px-3 py-1.5 text-sm bg-black border border-gray-800 rounded transition">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
-                            <path
-                                d="M12 .5C5.73.5.5 5.74.5 12.03c0 5.1 3.29 9.42 7.86 10.95.58.1.79-.25.79-.56v-2.1c-3.2.7-3.87-1.38-3.87-1.38-.53-1.36-1.3-1.72-1.3-1.72-1.06-.74.08-.73.08-.73 1.17.08 1.79 1.21 1.79 1.21 1.04 1.79 2.73 1.27 3.4.97.1-.76.41-1.27.74-1.56-2.55-.29-5.23-1.28-5.23-5.7 0-1.26.45-2.3 1.19-3.11-.12-.29-.52-1.46.11-3.04 0 0 .97-.31 3.18 1.19a11.1 11.1 0 0 1 5.8 0c2.21-1.5 3.18-1.19 3.18-1.19.63 1.58.23 2.75.11 3.04.74.81 1.19 1.85 1.19 3.11 0 4.43-2.69 5.41-5.25 5.7.42.37.79 1.1.79 2.22v3.29c0 .31.21.66.8.55 4.56-1.53 7.85-5.85 7.85-10.95C23.5 5.74 18.27.5 12 .5z" />
+                        class="flex items-center gap-2 px-3 py-1.5 text-xs font-medium bg-neutral-900 hover:bg-neutral-800 text-white border border-neutral-800 hover:border-neutral-700 rounded-lg transition-all duration-200">
+                        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M12 .5C5.73.5.5 5.74.5 12.03c0 5.1 3.29 9.42 7.86 10.95.58.1.79-.25.79-.56v-2.1c-3.2.7-3.87-1.38-3.87-1.38-.53-1.36-1.3-1.72-1.3-1.72-1.06-.74.08-.73.08-.73 1.17.08 1.79 1.21 1.79 1.21 1.04 1.79 2.73 1.27 3.4.97.1-.76.41-1.27.74-1.56-2.55-.29-5.23-1.28-5.23-5.7 0-1.26.45-2.3 1.19-3.11-.12-.29-.52-1.46.11-3.04 0 0 .97-.31 3.18 1.19a11.1 11.1 0 0 1 5.8 0c2.21-1.5 3.18-1.19 3.18-1.19.63 1.58.23 2.75.11 3.04.74.81 1.19 1.85 1.19 3.11 0 4.43-2.69 5.41-5.25 5.7.42.37.79 1.1.79 2.22v3.29c0 .31.21.66.8.55 4.56-1.53 7.85-5.85 7.85-10.95C23.5 5.74 18.27.5 12 .5z" />
                         </svg>
                         GitHub
                     </a>
                 </div>
             </header>
 
-            {% block content%}{%endblock%}
+            <div class="p-6">
+                {% block content%}{%endblock%}
+            </div>
 
         </main>
     </div>

@@ -2,81 +2,125 @@
 
 {% block content %}
 
-<section class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
-    <div class="bg-black p-5 rounded-lg shadow border border-gray-900">
-        <h3 class="text-sm text-gray-400">Migrations</h3>
-        <p class="text-2xl font-bold mt-2">{{ migrations | length}}</p>
-    </div>
-</section>
+<div class="space-y-6">
+    <!-- Header -->
+    <div class="flex flex-col md:flex-row md:items-center  gap-4">
+        
+        <div class="flex items-center gap-3">
+            <div class="bg-neutral-900 border border-neutral-800 rounded-lg px-4 py-2 flex items-center gap-2 text-sm text-gray-400">
+                <span class="w-2 h-2 rounded-full bg-green-500"></span>
+                <span class="font-semibold text-white">{{ migrations | length}}</span> Total Migrations
+             </div>
 
-<section class="bg-black rounded-lg p-5 border border-gray-900">
-    <div class="flex items-center justify-between mb-4">
-        <div>
-            <h2 class="text-lg font-semibold">Migrations</h2>
+            {% import "components/modal.html" as createMigrations%}
+
+            {% call createMigrations.modal(
+            "+ New Migration",
+            "Create Migration",
+            "px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg text-sm font-medium transition shadow-lg shadow-indigo-500/20"
+            ) %}
+            <form method="POST" action="/migration/create" class="flex flex-col gap-4 mt-2">
+                <div>
+                    <label class="block text-sm font-medium text-gray-300 mb-1">Migration Name</label>
+                    <input type="text" name="name" placeholder="e.g. create_users_table" class="w-full bg-neutral-900 border border-neutral-700 rounded-lg px-3 py-2 text-white focus:ring-indigo-500 focus:border-indigo-500" />
+                    <p class="text-xs text-gray-500 mt-1">Use snake_case for better readability.</p>
+                </div>
+                <div class="flex justify-end pt-2">
+                    <button type="submit"
+                        class="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg text-sm font-medium transition">
+                        Create Migration
+                    </button>
+                </div>
+            </form>
+            {% endcall %}
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="bg-neutral-900 border border-neutral-800 rounded-xl overflow-hidden">
+        <!-- Toolbar -->
+        <div class="p-4 border-b border-neutral-800 flex flex-col md:flex-row gap-4 justify-between items-center ">
+             <div class="relative w-full md:w-auto">
+                <form action="" method="get">
+                    <input type="text" name="migration" placeholder="Search migrations..." 
+                        class="bg-black border border-neutral-700 text-sm rounded-lg focus:ring-indigo-500 focus:border-indigo-500 block w-full md:w-64 pl-9 p-2 text-white placeholder-gray-500">
+                    <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                        <svg class="w-4 h-4 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+                    </div>
+                </form>
+            </div>
+            
+            <div class="flex gap-2">
+                 <button class="px-3 py-1.5 text-xs font-medium bg-neutral-800 text-gray-300 border border-neutral-700 rounded-lg hover:bg-neutral-700 transition-colors">
+                    Refresh Status
+                 </button>
+            </div>
         </div>
 
-        {% import "components/modal.html" as createMigrations%}
-
-        {% call createMigrations.modal(
-        "+ New Migration",
-        "Migration",
-        "px-4 py-2 bg-indigo-600 hover:bg-indigo-700 rounded text-sm font-medium transition"
-        ) %}
-        <form method="POST" action="/migration/create" class="flex flex-col gap-2">
-            <input type="text" name="name" placeholder="Nome da migration" class="border rounded px-2 py-1" />
-            <button type="submit"
-                class="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 rounded text-sm font-medium transition">
-                Create
-            </button>
-        </form>
-        {% endcall %}
+        <!-- Table -->
+        <div class="overflow-x-auto">
+            <table class="w-full text-sm text-left">
+                <thead class="text-xs text-gray-500 uppercase bg-neutral-900/50 border-b border-neutral-800">
+                    <tr>
+                        <th class="px-6 py-3 font-medium">Name</th>
+                        <th class="px-6 py-3 font-medium">Applied Date</th>
+                        <th class="px-6 py-3 font-medium">Status</th>
+                        <th class="px-6 py-3 font-medium text-right">Actions</th>
+                    </tr>
+                </thead>
+                <tbody class="divide-y divide-neutral-800">
+                    {% for migration in migrations%}
+                    <tr class="hover:bg-neutral-800/50 transition-colors group">
+                        <td class="px-6 py-4 font-medium text-white flex items-center gap-3">
+                            <div class="p-2 bg-neutral-800 rounded text-gray-400 group-hover:text-white transition-colors">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path></svg>
+                            </div>
+                            {{migration['name']}}
+                        </td>
+                        <td class="px-6 py-4 text-gray-500 font-mono text-xs">
+                            {{migration['activated'] if migration['activated'] else 'Not applied'}}
+                        </td>
+                        <td class="px-6 py-4">
+                            {% if migration['activated'] %}
+                            <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium bg-green-900/30 text-green-400 border border-green-900/50">
+                                <span class="w-1.5 h-1.5 rounded-full bg-green-500"></span>
+                                Active
+                            </span>
+                            {% else %}
+                            <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium bg-red-900/30 text-red-400 border border-red-900/50">
+                                <span class="w-1.5 h-1.5 rounded-full bg-red-500"></span>
+                                Inactive
+                            </span>
+                            {% endif %}
+                        </td>
+                        <td class="px-6 py-4 text-right">
+                            <div class="flex items-center justify-end gap-2">
+                                <a href="/migration/{{migration['name']}}"
+                                    class="inline-flex items-center gap-1.5 px-3 py-1.5 bg-neutral-800 hover:bg-indigo-900/30 text-gray-300 hover:text-indigo-300 border border-neutral-700 hover:border-indigo-500/30 rounded-lg text-xs font-medium transition-all">
+                                    <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path></svg>
+                                    Edit
+                                </a>
+                                <button class="inline-flex items-center gap-1.5 px-3 py-1.5 bg-neutral-800 hover:bg-red-900/30 text-gray-300 hover:text-red-400 border border-neutral-700 hover:border-red-500/30 rounded-lg text-xs font-medium transition-all">
+                                    <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+                    {% else %}
+                    <tr>
+                        <td colspan="4" class="px-6 py-12 text-center">
+                            <div class="flex flex-col items-center justify-center text-gray-500">
+                                <svg class="w-10 h-10 mb-3 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path></svg>
+                                <p class="text-sm">No migrations found.</p>
+                                <p class="text-xs mt-1 text-gray-600">Create your first migration to manage your database.</p>
+                            </div>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
     </div>
-
-    <!-- Search -->
-    <div class="mb-4">
-        <!-- TODO: Botar pra funcionar -->
-        <form action="" method="get">
-            <input type="text" name="migration" placeholder="Buscar migrations..."
-                class="w-full px-4 py-2 bg-neutral-900 border border-gray-800 rounded focus:outline-none focus:border-indigo-500">
-        </form>
-    </div>
-
-    <!-- Table -->
-    <div class="overflow-x-auto">
-        <table class="w-full text-sm">
-            <thead class="text-gray-400 border-b border-gray-800">
-                <tr>
-                    <th class="text-left py-3 px-2">Nome</th>
-                    <th class="text-left py-3 px-2">Data</th>
-                    <th class="text-left py-3 px-2">Status</th>
-                    <th class="text-left py-3 px-2">Ações</th>
-                </tr>
-            </thead>
-            <tbody>
-
-                {% for migration in migrations%}
-                <tr class="border-b border-gray-800 hover:bg-neutral-900 transition">
-                    <td class="py-3 px-2 font-medium">{{migration['name']}}</td>
-                    <td class="py-3 px-2 font-medium">{{migration['activated'] if migration['activated'] else
-                        '0000-00-00 00:00:00'}}</td>
-                    <td class="py-3 px-2">
-                        <span
-                            class="px-2 py-1 text-xs bg-{{'green' if migration['activated'] else 'red'}}-900/30 text-{{'green' if migration['activated'] else 'red'}}-400 rounded border border-{{'green' if migration['activated'] else 'red'}}-800">
-
-                            {{'ON' if migration['activated'] else 'OFF'}}
-                        </span>
-                    </td>
-                    <td class="py-3 px-2 flex gap-2">
-                        <a href="/migration/{{migration['name']}}"
-                            class="px-3 py-1 bg-blue-900/30 hover:bg-blue-900/50 text-blue-400 rounded text-xs transition">Edit</a>
-                        <a href="#"
-                            class="px-3 py-1 bg-red-900/30 hover:bg-red-900/50 text-red-400 rounded text-xs transition">Delete</a>
-                    </td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-    </div>
-</section>
+</div>
 
 {% endblock %}

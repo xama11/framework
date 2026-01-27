@@ -19,7 +19,7 @@ class CommandController(Controller):
             file = file.read()
             
         yourDecorators = DecoratorsModel().filter(commandFile=f'application/cogs/{name}.py').all()
-        
+
         return render_template('commands-edit.html',
             name=name,
             file=file,
