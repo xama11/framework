@@ -1,13 +1,13 @@
-class Cooldowns:
-    def table(self):
-        return '''
-             CREATE TABLE IF NOT EXISTS cooldowns (
-                    id INTEGER PRIMARY KEY AUTOINCREMENT,
-                    userId BIGINT NOT NULL,
-                    command VARCHAR(100) NOT NULL,
-                    lastUsed DATETIME DEFAULT CURRENT_TIMESTAMP
-                );
-            '''
+from provider.migrations.BaseMigration import BaseMigration
+from pypika.functions import CurTimestamp
+
+class Cooldowns(BaseMigration):
+    def __init__(self, table="cooldowns"):
+        super().__init__(table=table)
+        self.creator()
     
-    def seeders(self):
-        return [] # INSERT INTO cooldowns () VALUES ()
+    def creator(self):
+        self.id()
+        self.bigint('userId')
+        self.string('command', size=100)
+        self.timestamp('lastUsed', default=CurTimestamp())

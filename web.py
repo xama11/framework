@@ -1,12 +1,12 @@
 from flask import Flask, request, render_template
 
-from provider.cli.web.controllers.HomeController import HomeController
-from provider.cli.web.controllers.MigrationsController import MigrationsController
-from provider.cli.web.controllers.CommandController import CommandController
-from provider.cli.web.controllers.DecoratorController import DecoratorController
+from provider.octapus.web.controllers.HomeController import HomeController
+from provider.octapus.web.controllers.MigrationsController import MigrationsController
+from provider.octapus.web.controllers.CommandController import CommandController
+from provider.octapus.web.controllers.DecoratorController import DecoratorController
 
 app = Flask(__name__,
-            template_folder='provider/cli/web/templates')
+            template_folder='provider/octapus/web/templates')
 
 @app.route("/")
 def home():

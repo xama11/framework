@@ -1,4 +1,4 @@
-from provider.cli.messages.help import HelpFlag
+from provider.octapus.messages.help import HelpFlag
 
 class FlagsManager:
     def __init__(self, args):

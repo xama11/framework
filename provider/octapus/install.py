@@ -11,7 +11,7 @@ class Install:
         
     def run(self):
         timestamp = int(datetime.now().timestamp())
-        historic = "provider/cli/installs"
+        historic = "provider/octapus/installs"
         installFile = f"{timestamp}_{self.name}"
 
         kit = self._valid_kits()[self.name] if self.name in self._valid_kits() else None

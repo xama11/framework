@@ -1,12 +1,11 @@
-class Decorators:
-    def table(self):
-        return '''
-            CREATE TABLE IF NOT EXISTS decorators (
-                id INTEGER PRIMARY KEY AUTOINCREMENT,
-                decoratorFile VARCHAR(150) NOT NULL,
-                commandFile VARCHAR(150) NOT NULL
-            );
-            '''
+from provider.migrations.BaseMigration import BaseMigration
+
+class Decorators(BaseMigration):
+    def __init__(self, table="decorators"):
+        super().__init__(table=table)
+        self.creator()
     
-    def seeders(self):
-        return [] # INSERT INTO decorators () VALUES ()
+    def creator(self):
+        self.id()
+        self.string('decoratorFile', size=150)
+        self.string('commandFile', size=150)

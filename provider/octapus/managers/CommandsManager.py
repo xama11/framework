@@ -1,5 +1,5 @@
-from provider.cli.messages.help import HelpFlag
-from provider.cli.messages.info import InfoFlag
+from provider.octapus.messages.help import HelpFlag
+from provider.octapus.messages.info import InfoFlag
 
 from database.models.terminals import TerminalsModel
 
@@ -11,7 +11,7 @@ import os
 class CommandsManager:
     def __init__(self, args):
         self.args = args
-        self.provider_path = 'provider/cli'
+        self.provider_path = 'provider/octapus'
         self.cmd = self.args[0] if self.args else None
 
     def manager(self):
@@ -26,7 +26,7 @@ class CommandsManager:
         except ValueError as e:
             return f"Error: {e}"
         
-        if not os.path.exists(f'provider/cli/{command}.py'):
+        if not os.path.exists(f'provider/octapus/{command}.py'):
             return f"Error: Command '{command}' does not exist"
         
         if len(self.args) < 2: return InfoFlag().message()
@@ -38,7 +38,7 @@ class CommandsManager:
 
     def run_command(self, command: str, area: str):
         try:
-            module = importlib.import_module(f'provider.cli.{command}')
+            module = importlib.import_module(f'provider.octapus.{command}')
             
             className = command.capitalize()
             commandClass = getattr(module, className)
@@ -46,7 +46,7 @@ class CommandsManager:
             instance = commandClass(command, area, self.args[1])
             
             result = instance.run()
-            TerminalsModel().add(command=f'{command}:{area} {self.args[1]}')
+            # TerminalsModel().add(command=f'{command}:{area} {self.args[1]}')
             return result
             
         except ImportError as e:

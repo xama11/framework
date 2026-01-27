@@ -1,12 +1,12 @@
-class Terminals:
-    def table(self):
-        return '''
-            CREATE TABLE IF NOT EXISTS terminals (
-                id INTEGER PRIMARY KEY AUTOINCREMENT,
-                command VARCHAR(45) NOT NULL,
-                activated DATE DEFAULT CURRENT_TIMESTAMP
-            );
-            '''
+from provider.migrations.BaseMigration import BaseMigration
+from pypika.functions import CurTimestamp
+
+class Terminals(BaseMigration):
+    def __init__(self, table="terminals"):
+        super().__init__(table=table)
+        self.creator()
     
-    def seeders(self):
-        return [] # INSERT INTO terminals () VALUES ()
+    def creator(self):
+        self.id()
+        self.string('command', size=45)
+        self.date('activated', default=CurTimestamp())

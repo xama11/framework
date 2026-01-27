@@ -4,14 +4,13 @@ from typing import List, Optional
 
 from database.models.terminals import TerminalsModel
 
-from provider.cli.managers.FlagsManager import FlagsManager
-from provider.cli.managers.CommandsManager import CommandsManager
+from provider.octapus.managers.FlagsManager import FlagsManager
+from provider.octapus.managers.CommandsManager import CommandsManager
 
 from dotenv import load_dotenv
 load_dotenv()
 
 class OctapusCLI:
-    
     def __init__(self, args = sys.argv[1:]):
         self.args = args
         

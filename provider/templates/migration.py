@@ -1,10 +1,12 @@
-class Example:
-    def table(self):
-        return '''
-            CREATE TABLE IF NOT EXISTS example (
-                id INTEGER PRIMARY KEY AUTOINCREMENT
-            );
-            '''
+from provider.migrations.BaseMigration import BaseMigration
+from pypika.functions import CurTimestamp
+
+class Example(BaseMigration):
+    def __init__(self, table="example"):
+        super().__init__(table=table)
+        self.creator()
     
-    def seeders(self):
-        return [] # INSERT INTO example () VALUES ()
+    def creator(self):
+        self.id()
+        # self.string('name', size=45)
+        # self.date('createdAt', default=CurTimestamp())

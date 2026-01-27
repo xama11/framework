@@ -1,4 +1,4 @@
-from provider.migrations.BaseMigrations import BaseMigrations
+from provider.migrations.LoadMigrations import LoadMigrations
 from provider.colors import *
 
 class Load:
@@ -10,9 +10,9 @@ class Load:
     # Trocar ifs para funções
     def run(self):
         
-        if self.name =='fresh':
-            loader = BaseMigrations()
-            loader.run()
+        if self.name =='fresh' or self.name == 'refresh':
+            loader = LoadMigrations(rebuild=(self.name == 'refresh'))
+            loader.loader()
             
             print(
                 f'\n {RED}ALERT{RESET}\n'
@@ -21,20 +21,4 @@ class Load:
                 f' [EN] If you want to update an already loaded migration, use: '
                 f'{GREEN}python3 octapus.py load:migrate --refresh{RESET}'
             )
-            return f'\n [OCTAPUS] Migrations loaded\n'
-        
-        elif self.name =='refresh':
-            loader = BaseMigrations()
-            loader.run(force=True)
-            
-            print(
-                f'\n {RED}ALERT{RESET}\n'
-                f' [PT-BR] Se você quer atualizar uma migration já carregada, use: '
-                f'{GREEN}python3 octapus.py load:migrate --refresh{RESET}\n'
-                f' [EN] If you want to update an already loaded migration, use: '
-                f'{GREEN}python3 octapus.py load:migrate --refresh{RESET}'
-            )
-            return f'\n [OCTAPUS] Migrations loaded\n'
-        
-        elif self.name == '--check':
-            return "checked"
+            return f'\n{GREEN} [OCTAPUS] Migrations loaded{RESET}\n'

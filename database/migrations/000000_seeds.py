@@ -1,12 +1,12 @@
-class Seeds:
-    def table(self):
-        return '''
-            CREATE TABLE IF NOT EXISTS seeds (
-                id INTEGER PRIMARY KEY AUTOINCREMENT,
-                migration VARCHAR(45) NOT NULL,
-                activated DATE DEFAULT CURRENT_TIMESTAMP
-            );
-            '''
+from provider.migrations.BaseMigration import BaseMigration
+from pypika.functions import CurTimestamp
+
+class Seeds(BaseMigration):
+    def __init__(self, table="seeds"):
+        super().__init__(table=table)
+        self.creator()
     
-    def seeders(self):
-        return [] # INSERT INTO seeds () VALUES ()
+    def creator(self):
+        self.id()
+        self.string('migration', size=45)
+        self.date('activated', default=CurTimestamp())

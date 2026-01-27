@@ -1,16 +1,14 @@
-from datetime import datetime
+from provider.migrations.BaseMigration import BaseMigration
+from pypika.functions import CurTimestamp
 
-class Schedulers:
-    def table(self):
-        return '''
-            CREATE TABLE IF NOT EXISTS schedulers (
-                id INTEGER PRIMARY KEY AUTOINCREMENT,
-                date DATETIME DEFAULT CURRENT_TIMESTAMP,
-                schedule VARCHAR(255) NOT NULL,
-                scheduleId INTEGER NOT NULL,
-                activated BOOLEAN DEFAULT 0
-            );
-            '''
+class Schedulers(BaseMigration):
+    def __init__(self, table="schedulers"):
+        super().__init__(table=table)
+        self.creator()
     
-    def seeders(self):
-        return []
+    def creator(self):
+        self.id()
+        self.timestamp('date', default=CurTimestamp())
+        self.string('schedule', size=255)
+        self.integer('scheduleId')
+        self.boolean('activated', default=False)
