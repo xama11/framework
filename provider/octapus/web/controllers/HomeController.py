@@ -10,8 +10,6 @@ class HomeController(Controller):
         super().__init__(request)
     
     def view(self):
-        
-        
         migrations = [file for file in sorted(os.listdir('database/migrations/')) if file.endswith('.py') and not '0' in file[0]]
         terminals = TerminalsModel().get().limit(10).orderBy('id').all()
 

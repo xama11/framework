@@ -7,7 +7,6 @@ class Load:
         self.area = area
         self.name = name
         
-    # Trocar ifs para funções
     def run(self):
         
         if self.name =='fresh' or self.name == 'refresh':
