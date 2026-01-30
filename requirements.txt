@@ -1,7 +1,8 @@
-discord==2.6.0
+discord
 apscheduler==3.11.0
 python-dotenv==1.1.1
 pymysql==1.1.2
 
 pypika
 flask
+
