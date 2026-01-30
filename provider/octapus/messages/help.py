@@ -1,8 +1,8 @@
 from provider.colors import *
 
-class HelpFlag:
+class HelpMessage:
     def message(self):
-        return print(f"""
+        return f"""
 {GREEN}Octapus CLI
 
 {GREEN}Usage:{RESET}
@@ -19,4 +19,4 @@ class HelpFlag:
         python3 octapus.py make:scheduler argument_name{RESET}
     load:
         {BLUE}python3 octapus.py load:migrate{RESET}
-""")
+"""

@@ -1,4 +1,4 @@
-from provider.octapus.messages.help import HelpFlag
+from provider.octapus.messages.help import HelpMessage
 
 class FlagsManager:
     def __init__(self, args):
@@ -6,7 +6,7 @@ class FlagsManager:
 
     def results(self):
         return {
-            'help': HelpFlag().message
+            'help': HelpMessage().message
             }
     
     # Return True: stop and run only flag
@@ -22,7 +22,7 @@ class FlagsManager:
             if not name in self.results():
                 raise Exception(f' [ERROR] Invalid flag: --{name}')
             
-            self.results()[name]()
+            print(self.results()[name]())
         return True
 
     def _parse(self):

@@ -1,6 +1,6 @@
 from provider.colors import *
 
-class InfoFlag:
+class InfoMessage:
     def message(self):
         return f"""
 {GREEN}Octapus CLI{RESET}
