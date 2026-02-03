@@ -17,7 +17,7 @@ class ComponentLoader:
             containerFile = importlib.import_module(f'application.containers.{name}')
             containerClass = getattr(containerFile, f'{name.capitalize()}Container')
             
-            with open(basePath+f'/components/{name}.py', 'r') as file:
+            with open(basePath+f'/components/{name}.py', 'r', encoding='utf-8') as file:
                 componentCode = file.read()
                 
             tree = ast.parse(componentCode)
