@@ -4,10 +4,6 @@ import os
 class Database:
     
     def connect(self):
-        if not (os.path.exists('.env')):
-            print('\n [ERROR] Your project not have .env!\n')
-            exit()
-
         self.driver = os.getenv('DB_DRIVE')
 
         if (self.driver.lower() == 'sqlite3'):

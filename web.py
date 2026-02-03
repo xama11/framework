@@ -2,12 +2,19 @@ from flask import Flask
 import importlib
 import os
 
+from provider.colors import RED, RESET
+
+
 #############
 #
 # -> Dashboard Web
-# Open your terminald and use: `python3 web.py` to open.abs
+# Open your terminald and use: `python3 web.py` to open.
 #
 #############
+
+if not (os.path.exists('.env')):
+    print(f'\n{RED} [ERROR] Your project not have .env!\n{RESET}')
+    exit()
 
 app = Flask(__name__,
             template_folder='provider/octapus/web/templates')

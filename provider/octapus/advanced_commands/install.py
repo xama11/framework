@@ -17,8 +17,7 @@ class Install:
         kit = self._valid_kits()[self.name] if self.name in self._valid_kits() else None
 
         if not kit:
-            print('Invalid kit')
-            return
+            return print('Invalid kit')
 
         os.system(f'cd {historic} && git clone {kit['repository_url']} {installFile}')
         self._transfer_file(f'{historic+"/"+installFile}')
@@ -46,7 +45,7 @@ class Install:
         fullPath = os.path.join(path, file).replace('\\', '/')
 
         originalPath = "/".join(fullPath.split('/')[4:])
-        projectPath = "/".join(os.path.dirname(os.path.abspath(__file__)).split('\\')[:-2])
+        projectPath = "/".join(os.path.dirname(os.path.abspath(__file__)).split('\\')[:-3])
         newPosition = projectPath+"/"+originalPath
     
         with open(fullPath, encoding='utf-8') as file:
@@ -63,12 +62,12 @@ class Install:
 
         if not os.path.isdir(fullPath) and not "pycache" in fullPath:
             originalPath = "/".join(fullPath.split('/')[4:])
-            projectPath = "/".join(os.path.dirname(os.path.abspath(__file__)).split('\\')[:-2])
+            projectPath = "/".join(os.path.dirname(os.path.abspath(__file__)).split('\\')[:-3])
             newPosition = projectPath+"/"+originalPath
 
             # print()
-            # print(f"File: {fullPath}")
-            # print(f'Moved to: {originalPath}')
+            # print(f"[!] File: {fullPath}")
+            # print(f'[!] Moved to: {originalPath}')
             # print(projectPath+"/"+originalPath)
             # print()
 

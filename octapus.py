@@ -1,6 +1,9 @@
 import sys
+import os
 import importlib
 from typing import List, Optional
+
+from provider.colors import RED, RESET
 
 from database.models.terminals import TerminalsModel
 
@@ -19,6 +22,12 @@ class OctapusCLI:
 
 def main():
     try:
+
+        if not (os.path.exists('.env')):
+            print(f'\n{RED} [ERROR] Your project not have .env!\n{RESET}')
+            exit()
+
+
         result = OctapusCLI().manager()
         print(result) if result else None
         return 0
