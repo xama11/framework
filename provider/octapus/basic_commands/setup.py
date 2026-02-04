@@ -12,8 +12,8 @@ class Setup:
     def run(self):
 
         if not os.path.exists('database/database.db'):
-            print(f'{GREEN} [SETUP] Creating your database {RESET}')
-            OctapusCLI(args=['load:migrations fresh']).manager()
+            print(f'{GREEN} \n [SETUP] Creating your database\n {RESET}')
+            OctapusCLI(args=['load:migration', 'fresh']).manager()
         else:
             print(f'{RED} [SETUP] Database already exists {RESET}')
 

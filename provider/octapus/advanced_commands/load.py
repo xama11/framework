@@ -14,10 +14,8 @@ class Load:
             loader.loader()
             
             print(
-                f'\n {RED}ALERT{RESET}\n'
-                f' [PT-BR] Se você quer atualizar uma migration já carregada, use: '
-                f'{GREEN}python3 octapus.py load:migrate --refresh{RESET}\n'
-                f' [EN] If you want to update an already loaded migration, use: '
-                f'{GREEN}python3 octapus.py load:migrate --refresh{RESET}'
+                f'\n {RED}ALERT:{RESET}'
+                f' If you want to update an already loaded migration, use: '
+                f'{BLUE}python3 octapus.py load:migrate --refresh{RESET}'
             )
             return f'\n{GREEN} [OCTAPUS] Migrations loaded{RESET}\n'

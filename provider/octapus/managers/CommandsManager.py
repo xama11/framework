@@ -74,7 +74,6 @@ class CommandsManager:
             instance = commandClass(self.cmd)
             
             result = instance.run()
-            TerminalsModel().add(command=f'{self.cmd}')
             return result
             
         except ImportError as e:
