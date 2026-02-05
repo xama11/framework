@@ -1,5 +1,5 @@
 from flask import request
-from provider.octapus.web.controllers.MigrationsController import MigrationsController
+from provider.web.controllers.MigrationsController import MigrationsController
 
 def router(app):
     @app.route("/migrations")

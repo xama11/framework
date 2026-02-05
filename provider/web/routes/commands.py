@@ -1,5 +1,5 @@
 from flask import request
-from provider.octapus.web.controllers.CommandController import CommandController
+from provider.web.controllers.CommandController import CommandController
 
 def router(app):
     @app.route("/commands")

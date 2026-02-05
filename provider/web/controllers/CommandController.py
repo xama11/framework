@@ -1,5 +1,5 @@
 from flask import render_template, redirect, url_for
-from provider.octapus.web.controllers.Controller import Controller
+from provider.web.controllers.Controller import Controller
 from octapus import OctapusCLI
 
 from database.models.decorators import DecoratorsModel

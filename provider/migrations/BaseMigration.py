@@ -18,12 +18,12 @@ class BaseMigration:
 
     def bigint(self, name, nullable=False, default=None):
         return self._create(name, column_type="BIGINT", nullable=nullable, default=default)
+    
+    def float(self, name, nullable=False, default=None):
+        return self._create(name, column_type=SqlTypes.FLOAT, nullable=nullable, default=default)
 
     def boolean(self, name, nullable=False, default=None):
         return self._create(name, column_type=SqlTypes.BOOLEAN, nullable=nullable, default=default)
-
-    def float(self, name, nullable=False, default=None):
-        return self._create(name, column_type=SqlTypes.FLOAT, nullable=nullable, default=default)
 
     def numeric(self, name, nullable=False, default=None):
         return self._create(name, column_type=SqlTypes.NUMERIC, nullable=nullable, default=default)

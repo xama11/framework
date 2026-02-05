@@ -1,0 +1,59 @@
+{% extends "layouts/app.html" %}
+
+{% block content %}
+
+<div class="space-y-6">
+
+    <div class="bg-indigo-900/30 border border-indigo-500/30 rounded-lg p-4 flex items-start gap-3">
+        <svg class="w-5 h-5 text-indigo-400 mt-0.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+        </svg>
+        <div>
+            <h3 class="text-sm font-medium text-indigo-300">Important Notice</h3>
+            <p class="text-sm text-indigo-200/80 mt-1">
+                Before installing a kit, ensure it's not already present in your project. Re-installing or overwriting
+                an existing kit may reset your code modifications.
+            </p>
+        </div>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div class="group bg-neutral-900 border border-neutral-800 rounded-xl p-5">
+            <div class="flex justify-between items-start mb-4"></div>
+            <h3 class="text-lg font-semibold text-white mb-2">Ticket</h3>
+            <p class="text-sm text-gray-400 mb-6 h-10 line-clamp-2">Ticket System</p>
+            <div class="flex items-center justify-between pt-4 border-t border-neutral-800">
+                <span class="text-xs text-gray-500 bg-neutral-800 p-1 px-2 rounded"><a
+                        href="https://github.com/xama11/kit-ticket">Repository</a></span>
+                <form action="/kits/install" method="post">
+                    <input type="hidden" name="kit" value="ticket">
+
+                    <button
+                        class="px-3 py-1.5 text-sm font-medium bg-white text-black rounded hover:bg-gray-200 transition-colors flex items-center gap-2">
+                        Install
+                    </button>
+                </form>
+            </div>
+        </div>
+        <div class="group bg-neutral-900 border border-neutral-800 rounded-xl p-5">
+            <div class="flex justify-between items-start mb-4"></div>
+            <h3 class="text-lg font-semibold text-white mb-2">Economy</h3>
+            <p class="text-sm text-gray-400 mb-6 h-10 line-clamp-2">Economy System</p>
+            <div class="flex items-center justify-between pt-4 border-t border-neutral-800">
+                <span class="text-xs text-gray-500 bg-neutral-800 p-1 px-2 rounded"><a
+                        href="https://github.com/xama11/kit-economy">Repository</a></span>
+                <form action="/kits/install" method="post">
+                    <input type="hidden" name="kit" value="economy">
+
+                    <button
+                        class="px-3 py-1.5 text-sm font-medium bg-white text-black rounded hover:bg-gray-200 transition-colors flex items-center gap-2">
+                        Install
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

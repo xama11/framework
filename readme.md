@@ -1,23 +1,19 @@
 # xama11
-
-[![Wiki](https://img.shields.io/badge/docs-wiki-blue)](https://github.com/xama11/framework/wiki)
+[![Documentation](https://img.shields.io/badge/docs-xama11.silvaleal.dev-blue)](https://doc-xama11.silvaleal.dev)
+[![Website](https://img.shields.io/badge/website-xama11.silvaleal.dev-blue)](https://xama11.silvaleal.dev)
 [![Discord.py](https://img.shields.io/badge/discord.py-2.6.0-blue.svg)](https://pypi.org/project/discord.py/)
 [![Python](https://img.shields.io/badge/python-3.12-blue.svg)](https://www.python.org/)
 
-A simple and modular framework for developing bots using **discord.py v2**.
+<img style="border-radius: 20px;" src="provider/banner-dashboard.png" alt="Dashboard" />
 
 ## 📖 Learn to use
-The full documentation is available on the [project Wiki](https://github.com/xama11/framework/wiki).  
+The full documentation is available on the [project doc](https://github.com/xama11/framework/wiki).  
 There you will find usage examples, installation guides, and internal framework details.
-To run migrations:
 
 ## ⚙️ Technical details
 
-* **Default timezone:** `UTC`
-* **Discord.py:** `2.6.0`
-* **Python:** `3.12`
-* **Default Database:** `SQLite3`
-* **Version:** `1.3`
+* **Discord.py:** `2.6.4+`
+* **Python:** `3.12+`
 
 ## 🛠️ Contributing
 

@@ -1,5 +1,5 @@
 from flask import request
-from provider.octapus.web.controllers.DecoratorController import DecoratorController
+from provider.web.controllers.DecoratorController import DecoratorController
 
 def router(app):
     @app.route("/decorator/add", methods=['POST'])

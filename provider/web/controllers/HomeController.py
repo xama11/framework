@@ -1,5 +1,5 @@
 from flask import render_template, redirect, url_for
-from provider.octapus.web.controllers.Controller import Controller
+from provider.web.controllers.Controller import Controller
 import os
 
 from database.models.migrations import MigrationsModel

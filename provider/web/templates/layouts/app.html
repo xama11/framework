@@ -83,7 +83,7 @@
                 </button>
 
                 <div class="flex items-center gap-4">
-                    <span class="hidden md:inline-flex text-xs font-mono text-neutral-500 bg-neutral-900 border border-neutral-800 px-2 py-1 rounded">octapus v1.0</span>
+                    <span class="hidden md:inline-flex text-xs font-mono text-neutral-500 bg-neutral-900 border border-neutral-800 px-2 py-1 rounded">octapus</span>
 
                     <div class="h-4 w-px bg-neutral-800"></div>
 
@@ -99,6 +99,22 @@
             </header>
 
             <div class="p-6">
+                {% with alerts = get_flashed_messages(with_categories=true) %}
+                    {% if alerts %}
+                        <div class="mb-6 space-y-2">
+                            {% for category, message in alerts %}
+                                <div class="p-4 rounded-lg text-sm font-medium
+                                    {% if category == 'error' %} bg-red-900/50 text-red-200 border border-red-800
+                                    {% elif category == 'success' %} bg-emerald-900/50 text-emerald-200 border border-emerald-800
+                                    {% else %} bg-neutral-800 text-gray-200 border border-neutral-700
+                                    {% endif %}">
+                                    {{ message }}
+                                </div>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                {% endwith %}
+
                 {% block content%}{%endblock%}
             </div>
 
