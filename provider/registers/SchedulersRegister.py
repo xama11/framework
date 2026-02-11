@@ -1,7 +1,7 @@
 import os
 import importlib
 
-class SchedulerLoader:
+class SchedulerRegister:
     def __init__(self, scheduler, bot):
         self.scheduler = scheduler
         self.bot = bot

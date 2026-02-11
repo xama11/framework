@@ -1,8 +1,8 @@
 from apscheduler.schedulers.asyncio import AsyncIOScheduler
 from discord.ext import commands
 from dotenv import load_dotenv
-from provider.loaders.ComponentLoader import ComponentLoader
-from provider.loaders.SchedulerLoader import SchedulerLoader
+from provider.registers.ComponentsRegister import ComponentRegister
+from provider.registers.SchedulersRegister import SchedulerRegister
 import discord
 import os
 
@@ -16,8 +16,8 @@ class Bot(commands.Bot):
     async def setup_hook(self):
         self.scheduler.start()
         
-        await ComponentLoader(self).load()
-        await SchedulerLoader(self.scheduler, self).load()
+        await ComponentRegister(self).load()
+        await SchedulerRegister(self.scheduler, self).load()
         
         for file in os.listdir("application/cogs"):
             if file.endswith(".py"):

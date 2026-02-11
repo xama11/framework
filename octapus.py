@@ -7,7 +7,6 @@ from provider.colors import RED, RESET
 
 from database.models.terminals import TerminalsModel
 
-from provider.octapus.managers.FlagsManager import FlagsManager
 from provider.octapus.managers.CommandsManager import CommandsManager
 
 from dotenv import load_dotenv
@@ -18,15 +17,13 @@ class OctapusCLI:
         self.args = args
         
     def manager(self):
-        return CommandsManager(self.args).manager() if not FlagsManager(self.args).run() else None
+        return CommandsManager(self.args).manager()
 
 def main():
     try:
-
         if not (os.path.exists('.env')):
             print(f'\n{RED} [ERROR] Your project not have .env!\n{RESET}')
             exit()
-
 
         result = OctapusCLI().manager()
         print(result) if result else None

@@ -2,7 +2,7 @@ import os
 import importlib
 import ast
 
-class ComponentLoader:
+class ComponentRegister:
     def __init__(self, bot):
         self.bot = bot
     
@@ -14,8 +14,21 @@ class ComponentLoader:
 
             name = file.replace('.py', '')
 
+            with open(f'{basePath}/{file}', 'r', encoding='utf-8') as source_file:
+                containerCode = source_file.read()
+
+            containerTree = ast.parse(containerCode)
+            className = None
+            for node in ast.walk(containerTree):
+                if isinstance(node, ast.ClassDef) and node.name == name:
+                    className = node.name
+                    break
+            
+            if className is None:
+                continue
+
             containerFile = importlib.import_module(f'application.containers.{name}')
-            containerClass = getattr(containerFile, f'{name.capitalize()}Container')
+            containerClass = getattr(containerFile, className)
             
             with open(basePath+f'/components/{name}.py', 'r', encoding='utf-8') as file:
                 componentCode = file.read()
