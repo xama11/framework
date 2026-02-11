@@ -1,10 +1,13 @@
 from pypika import Query, Table, Column
 from pypika.enums import SqlTypes
+from pypika.dialects import MySQLQuery
+import os
 
 class BaseMigration:
     def __init__(self, table):
         self.table = table
-        self.query = Query.create_table(self.table).if_not_exists()
+        self.dbType = Query if os.getenv('DB_DRIVE').lower() == 'sqlite3' else MySQLQuery
+        self.query = self.dbType.create_table(self.table).if_not_exists()
     
     def id(self):
         self.query = self._create('id', column_type=SqlTypes.INTEGER, nullable=False).primary_key('id')
