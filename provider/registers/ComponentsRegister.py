@@ -20,7 +20,7 @@ class ComponentRegister:
             containerTree = ast.parse(containerCode)
             className = None
             for node in ast.walk(containerTree):
-                if isinstance(node, ast.ClassDef) and node.name == name:
+                if isinstance(node, ast.ClassDef) and node.name.lower() == f"{name}container".lower():
                     className = node.name
                     break
             
@@ -43,4 +43,7 @@ class ComponentRegister:
                 componentFile = importlib.import_module(f'application.containers.components.{name}')
                 componentClass = getattr(componentFile, f'{className}')
                 
-                self.bot.add_view(componentClass(containerClass()))
+                try:
+                    self.bot.add_view(componentClass(containerClass()))
+                except TypeError:
+                    pass
