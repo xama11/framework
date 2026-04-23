@@ -19,10 +19,12 @@ class Install:
         if not kit:
             return print('Invalid kit')
 
-        os.system(f'cd {historic} && git clone {kit['repository_url']} {installFile}')
-        self._transfer_file(f'{historic+"/"+installFile}')
+        os.makedirs(historic, exist_ok=True)
 
-        print(f'\n {GREEN}[OCTAPUS] Kit installed: {kit['repository_url']} {RESET}\n')
+        os.system(f'cd {historic} && git clone {kit["repository_url"]} {installFile}')
+        self._transfer_file(f'{historic}/{installFile}')
+
+        print(f'\n {GREEN}[OCTAPUS] Kit installed: {kit["repository_url"]} {RESET}\n')
 
     def _valid_kits(self):
         # Todo: transferir para uma API
@@ -45,11 +47,18 @@ class Install:
         fullPath = os.path.join(path, file).replace('\\', '/')
 
         originalPath = "/".join(fullPath.split('/')[4:])
-        projectPath = "/".join(os.path.dirname(os.path.abspath(__file__)).split('\\')[:-3])
+        projectPath = "/".join(os.path.dirname(os.path.abspath(__file__)).split('\\')[:-4])
         newPosition = projectPath+"/"+originalPath
+        
+        # O arquivo env do kit deve ser somado no .env do projeto
+        if originalPath == "env":
+            newPosition = projectPath+"/.env"
     
-        with open(fullPath, encoding='utf-8') as file:
-            kitFile = file.read()
+        with open(fullPath, encoding='utf-8') as file_obj:
+            kitFile = file_obj.read()
+
+        # Certificar-se de que o diretório de destino existe
+        os.makedirs(os.path.dirname(newPosition), exist_ok=True)
 
         with open(newPosition, 'a', encoding='utf-8') as oficialFile:
             oficialFile.write(f"\n{kitFile}")
@@ -62,13 +71,10 @@ class Install:
 
         if not os.path.isdir(fullPath) and not "pycache" in fullPath:
             originalPath = "/".join(fullPath.split('/')[4:])
-            projectPath = "/".join(os.path.dirname(os.path.abspath(__file__)).split('\\')[:-3])
+            projectPath = "/".join(os.path.dirname(os.path.abspath(__file__)).split('\\')[:-4])
             newPosition = projectPath+"/"+originalPath
 
-            # print()
-            # print(f"[!] File: {fullPath}")
-            # print(f'[!] Moved to: {originalPath}')
-            # print(projectPath+"/"+originalPath)
-            # print()
+            # Certificar-se de que o diretório de destino existe
+            os.makedirs(os.path.dirname(newPosition), exist_ok=True)
 
             shutil.move(fullPath, newPosition)
