@@ -1,6 +1,6 @@
 from discord.ext import commands
 from discord import app_commands
-from application.decorators._enum import *
+from application.decorators import *
 
 # Your imports
 
