@@ -35,6 +35,12 @@ class Install:
                 'sum-files': ['env'],
                 'ignore-files': ['readme.md', '.git'],
             },
+            'economy': {
+                'repository_url': 'https://github.com/xama11/kit-economy',
+                'author': 'silvaleal',
+                'sum-files': ['env'],
+                'ignore-files': ['readme.md', '.git'],
+            },
         }
 
     def _transfer_file(self, path):
